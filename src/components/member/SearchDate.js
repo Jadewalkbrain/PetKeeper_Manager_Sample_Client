@@ -27,7 +27,7 @@ class SearchDate extends Component {
       device: '',
       startDate:'',
       endDate:'',
-      deviceData:'',
+      petData:'',
     };
 
 
@@ -58,9 +58,9 @@ class SearchDate extends Component {
       })
       .then(res => {
         console.log(res)
-        this.setState({deviceData : res.data})
-        console.log(this.state.deviceData)
-        this.props.callback(this.state.deviceData)
+        this.setState({petData : res.data})
+        console.log(this.state.petData)
+        this.props.callback(this.state.petData)
         this.props.onSubmit()
         })
       }

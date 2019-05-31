@@ -1,10 +1,10 @@
-import React,{Component} from 'react';
+import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 250;
 
@@ -14,7 +14,7 @@ const styles = theme => ({
     display: "flex"
   },
   title: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1
@@ -30,27 +30,34 @@ const styles = theme => ({
     flexGrow: 1,
     padding: theme.spacing.unit * 3
   },
-  toolbar: theme.mixins.toolbar,
+  toolbar: theme.mixins.toolbar
 });
 
-class Header extends Component{
-  render(){
-  const { classes } = this.props;
-  return (
-    <div className={classes.root} >
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-          <Link to="/welcome" style={{ textDecoration: "none", color: "white" }}>
+class Header extends Component {
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.root}>
+        <AppBar position="fixed" className={classes.appBar}>
+          <Toolbar>
+            <Typography variant="h6" className={classes.title}>
+              <Link
+                to="/welcome"
+                style={{ textDecoration: "none", color: "white" }}
+              >
                 CS관리프로그램
               </Link>
-          </Typography>
-          <Button color="inherit"><Link to="/" style={{ textDecoration: 'none' , color: "white"}}>Logout</Link> </Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
-}
+            </Typography>
+            <Button color="inherit">
+              <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+                Logout
+              </Link>
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 }
 
 export default withStyles(styles)(Header);

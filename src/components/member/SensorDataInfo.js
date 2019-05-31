@@ -13,20 +13,6 @@ const styles = theme => ({
   },
 });
 
-let id = 0;
-function createData(date, time, seconds) {
-  id += 1;
-  return { id, date, time, seconds };
-}
-
-const rows = [
-  createData('05-08','08:00:05','20"'),
-  createData('05-09','06:11:05','5"'),
-  createData('05-10','08:20:05','10"'),
-  createData('05-11','07:00:05','2"'),
-];
-
-
 
 class AnalysisDataInfo extends Component {
     render() {
@@ -42,13 +28,13 @@ class AnalysisDataInfo extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(row => (
-              <TableRow key={row.id}>
+            {this.props.data.map(data => (
+              <TableRow key={data.userid}>
                 <TableCell component="th" scope="row">
-                  {row.date}
+                  {data.date}
                 </TableCell>
-                <TableCell >{row.time}</TableCell>
-                <TableCell>{row.seconds}</TableCell>
+                <TableCell >{data.time}</TableCell>
+                <TableCell>{data.seconds}</TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -39,7 +39,7 @@ class DataInfo extends Component {
                   />
                 </RadioGroup>
               </FormControl>
-             {this.state.value ==='first' ? <AnalysisDataInfo data = {this.props.data}/>:<SensorDataInfo/>}
+             {this.state.value ==='first' ? <AnalysisDataInfo data = {this.props.data}/>:<SensorDataInfo data = {this.props.data}/>}
             </fieldset>
       );
     }

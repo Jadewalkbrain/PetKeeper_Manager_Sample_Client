@@ -17,11 +17,11 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 
-let counter = 0;
-function createData(date, time, seconds, num) {
-  counter += 1;
-  return { id: counter, date, time, seconds, num };
-}
+// let counter = 0;
+// function createData(date, time, seconds, num) {
+//   counter += 1;
+//   return { id: counter, date, time, seconds, num };
+// }
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -184,17 +184,17 @@ class AnalysisDataInfo extends React.Component {
     order: 'asc',
     orderBy: 'time',
     selected: [],
-    data: [
-      createData('05-08', '08:00:05', `1'00"`, 3),
-      createData('05-09', '09:00:05', `5'00"`, 5),
-      createData('05-10', '10:00:05', `5'20"`, 10),
-      createData('05-11', '07:00:06', `1'00"`, 8),
-      createData('05-12', '05:00:05', `1'30"`, 7),
-      createData('05-13', '03:00:08', `3'00"`, 3),
-      createData('05-14', '11:00:11', `1'11"`, 6),
-      createData('05-15', '12:00:12', `2'00"`, 3),
-      createData('05-16', '08:11:05', `1'50"`, 5),
-    ],
+    // data: [
+    //   createData('05-08', '08:00:05', `1'00"`, 3),
+    //   createData('05-09', '09:00:05', `5'00"`, 5),
+    //   createData('05-10', '10:00:05', `5'20"`, 10),
+    //   createData('05-11', '07:00:06', `1'00"`, 8),
+    //   createData('05-12', '05:00:05', `1'30"`, 7),
+    //   createData('05-13', '03:00:08', `3'00"`, 3),
+    //   createData('05-14', '11:00:11', `1'11"`, 6),
+    //   createData('05-15', '12:00:12', `2'00"`, 3),
+    //   createData('05-16', '08:11:05', `1'50"`, 5),
+    // ],
     page: 0,
     rowsPerPage: 5,
   };
@@ -212,7 +212,7 @@ class AnalysisDataInfo extends React.Component {
 
   handleSelectAllClick = event => {
     if (event.target.checked) {
-      this.setState(state => ({ selected: state.data.map(n => n.id) }));
+      this.setState(state => ({ selected: this.props.data.map(n => n.id) }));
       return;
     }
     this.setState({ selected: [] });
@@ -251,8 +251,9 @@ class AnalysisDataInfo extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+    const { order, orderBy, selected, rowsPerPage, page } = this.state;
+    // const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, this.props.data.length - page * rowsPerPage);
 
     return (
       <Paper className={classes.root}>
@@ -265,10 +266,10 @@ class AnalysisDataInfo extends React.Component {
               orderBy={orderBy}
               onSelectAllClick={this.handleSelectAllClick}
               onRequestSort={this.handleRequestSort}
-              rowCount={data.length}
+              rowCount={this.props.data.length}
             />
             <TableBody>
-              {stableSort(data, getSorting(order, orderBy))
+              {stableSort(this.props.data, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
                   const isSelected = this.isSelected(n.id);
@@ -282,7 +283,7 @@ class AnalysisDataInfo extends React.Component {
                       key={n.id}
                       selected={isSelected}
                     >
-                      <TableCell padding="checkbox">
+                      <TableCell padding="checkbox" key={n.id}>
                         <Checkbox checked={isSelected} />
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
@@ -305,7 +306,7 @@ class AnalysisDataInfo extends React.Component {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={data.length}
+          count={this.props.data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
