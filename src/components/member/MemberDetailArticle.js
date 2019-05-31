@@ -9,11 +9,17 @@ class MemberDetailArticle extends Component {
   state = {
       mode: "search",
       mode1:"",
-      member:null
+      member:null,
+      petData:null
     };
     callbackData = (data) =>{
       this.setState({member:data})
-      console.log(this.state.member)
+      console.log(this.state.member, this.state.mode1)
+    }
+
+    callbackPetData = (data) =>{
+      this.setState({petData:data})
+      console.log(this.state.petData)
     }
   render() {
     return (
@@ -40,9 +46,11 @@ class MemberDetailArticle extends Component {
           <div>
             {this.state.mode === "dateSearch" && (
               <SearchDate
+                data={this.state.member}
                 onSubmit={() => {
                   this.setState({ mode1: "all" });
                 }}
+                callback={this.callbackPetData}
               />
             )}
           </div>
@@ -50,7 +58,7 @@ class MemberDetailArticle extends Component {
         <div>
           {this.state.mode === "dateSearch" && <MemberInfo data={this.state.member}/>}
         </div>
-        <div>{this.state.mode1 === "all" && <DataInfo />}</div>
+              <div>{this.state.mode1 === "all" && <DataInfo data={this.state.petData}/>}</div>
       </Grid>
     );
   }

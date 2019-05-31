@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const drawerWidth = 250;
 
@@ -40,11 +41,11 @@ class Header extends Component{
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-          <a href="/" style={{ textDecoration: "none", color: "white" }}>
+          <Link to="/welcome" style={{ textDecoration: "none", color: "white" }}>
                 CS관리프로그램
-              </a>
+              </Link>
           </Typography>
-          {/* <Button color="inherit">Login</Button> */}
+          <Button color="inherit"><Link to="/" style={{ textDecoration: 'none' , color: "white"}}>Logout</Link> </Button>
         </Toolbar>
       </AppBar>
     </div>

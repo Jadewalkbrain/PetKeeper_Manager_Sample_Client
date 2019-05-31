@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import DashBoard from "../DashBoard";
-import MemberDetailArticle from "../MemberDetailArticle";
-import TotalDetailArticle from "../TotalDetailArticle";
+import DashBoard from "../dashboard/DashBoard";
+import MemberDetailArticle from "../member/MemberDetailArticle";
+import TotalDetailArticle from "../total/TotalDetailArticle";
 
 class Article extends Component {
   getShowContents() {

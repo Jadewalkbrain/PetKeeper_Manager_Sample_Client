@@ -1,5 +1,7 @@
 import React,{Component} from 'react';
 import {withStyles, InputLabel,Select,MenuItem, TextField,Button,FormControl} from "@material-ui/core";
+import axios from 'axios';
+
 
 const styles = theme => ({
     root: {
@@ -18,32 +20,55 @@ const styles = theme => ({
     }
   });
 
+
+
 class SearchDate extends Component {
     state = {
       device: '',
-
+      startDate:'',
+      endDate:'',
+      deviceData:'',
     };
+
+
     handleChange = event => {
       this.setState({ [event.target.name]: event.target.value });
     };
+
+    handleChange1 = event => {
+      this.setState({startDate: event.target.value });
+    };
+  
+    handleChange2 = event => {
+      this.setState({endDate
+        : event.target.value });
+    };
+
+    handleClick = event => {
+      event.preventDefault();
+  
+      axios({
+        method: 'post',
+        url: 'http://localhost:3001/device/data',
+        data: {
+          device: this.state.device,
+          startDate:this.state.startDate,
+          endDate:this.state.endDate
+        }
+      })
+      .then(res => {
+        console.log(res)
+        this.setState({deviceData : res.data})
+        console.log(this.state.deviceData)
+        this.props.callback(this.state.deviceData)
+        this.props.onSubmit()
+        })
+      }
+
   render(){
     const { classes } = this.props;
     return (
-      <div>
-        <form
-        className={classes.root}
-          noValidate
-          action=""
-          method="POST"
-          onSubmit={function(e) {
-            e.preventDefault();
-            this.props.onSubmit(
-              e.target.device.value,
-              e.target.start.value,
-              e.target.end.value
-            );
-          }.bind(this)}
-        >
+      <div className={classes.root}>
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="device-simple">전체기기</InputLabel>
             <Select
@@ -54,8 +79,9 @@ class SearchDate extends Component {
                 id: "device-simple"
               }}
             >
-              <MenuItem value={10}>기기1</MenuItem>
-              <MenuItem value={20}>기기2</MenuItem>
+              {this.props.data.map(data =>(
+                <MenuItem key={data.userid} value={data.device}>{data.device}</MenuItem>
+                ))}
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
@@ -64,7 +90,8 @@ class SearchDate extends Component {
             label="시작일"
             type="date"
             name="start"
-            defaultValue="2017-05-01"
+            value={this.state.startDate}
+            onChange={this.handleChange1}
             InputLabelProps={{
               shrink: true
             }}
@@ -76,16 +103,16 @@ class SearchDate extends Component {
             label="종료일"
             type="date"
             name="end"
-            defaultValue="2017-05-30"
+            value={this.state.endDate}
+            onChange={this.handleChange2}
             InputLabelProps={{
               shrink: true
             }}
           />
           </FormControl>
-          <Button type="submit" variant="contained" color="primary" className={classes.button}>
+          <Button type="submit" variant="contained" color="primary" className={classes.button} onClick={this.handleClick}>
             검색
           </Button>
-        </form>
       </div>
     );
   }}
