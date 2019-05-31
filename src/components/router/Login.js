@@ -73,6 +73,11 @@ class Login extends Component {
     .then(res => {
       console.log(res)
       this.setState({status : res.data.msg})
+      if(res.data.msg === 'success'){
+        this.props.history.push('/welcome')
+      }else if(res.data.msg === 'fail'){
+        this.props.history.push('/')
+      }
       })
   }
 
@@ -105,6 +110,7 @@ class Login extends Component {
               onChange={this.handleChange2}
             />
           </FormControl>
+
           <Button
             type="submit"
             fullWidth
