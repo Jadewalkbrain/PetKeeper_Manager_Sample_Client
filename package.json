@@ -8,7 +8,7 @@
     "@material-ui/docs": "^3.0.0-alpha.9",
     "@material-ui/icons": "^3.0.2",
     "@material-ui/pickers": "^3.0.0-beta.1",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "date-fns": "^1.30.1",
     "highcharts-drilldown": "^0.1.7",
     "react": "^16.8.6",
